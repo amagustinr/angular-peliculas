@@ -9,6 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { primeraLetraMayuscula } from '../../funciones/validaciones';
+import { IServicioCRUD } from '../../interfaces/IServicioCRUD';
 
 @Component({
   selector: 'app-indice-entidad',
@@ -16,7 +17,7 @@ import { primeraLetraMayuscula } from '../../funciones/validaciones';
   templateUrl: './indice-entidad.component.html',
   styleUrl: './indice-entidad.component.css'
 })
-export class IndiceEntidadComponent<TDTO> {
+export class IndiceEntidadComponent<TDTO, TCreacionDTO> {
   @Input({required: true})
   titulo!: string;
 
@@ -29,7 +30,7 @@ export class IndiceEntidadComponent<TDTO> {
   @Input()
   columnasAMostrar = ['id','nombre','acciones'];
 
-  servicioCRUD = inject(SERVICIO_CRUD_TOKEN) as any;
+  servicioCRUD = inject(SERVICIO_CRUD_TOKEN) as IServicioCRUD<TDTO,TCreacionDTO>;
 
   paginacion: PaginacionDTO = {pagina: 1, recordsPorPagina: 5};
   entidades!: TDTO[];
