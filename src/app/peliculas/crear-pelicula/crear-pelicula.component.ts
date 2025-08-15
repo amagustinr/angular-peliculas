@@ -7,10 +7,11 @@ import { PeliculasService } from '../peliculas.service';
 import { Router } from '@angular/router';
 import { extraerErrores } from '../../compartidos/funciones/extraerErrores';
 import { MostrarErroresComponent } from "../../compartidos/componentes/mostrar-errores/mostrar-errores.component";
+import { CargandoComponent } from "../../compartidos/componentes/cargando/cargando.component";
 
 @Component({
   selector: 'app-crear-pelicula',
-  imports: [FormularioPeliculasComponent, MostrarErroresComponent],
+  imports: [FormularioPeliculasComponent, MostrarErroresComponent, CargandoComponent],
   templateUrl: './crear-pelicula.component.html',
   styleUrl: './crear-pelicula.component.css'
 })
