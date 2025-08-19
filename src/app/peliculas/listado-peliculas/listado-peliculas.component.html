@@ -16,7 +16,8 @@
           </p>
           <div>
             <a mat-flat-button [routerLink]="['/peliculas/editar', pelicula.id]">Editar</a>
-            <button mat-flat-button class="warm">Borrar</button>
+            <button mat-flat-button class="warm" [swal]="{title: 'Confirmacion',
+              text: '¿Deseas borrar el registro?', showCancelButton: true}" (confirm)="borrar(pelicula.id)">Borrar</button>
         </div>
         </div>
       }
