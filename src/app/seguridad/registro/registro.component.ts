@@ -1,24 +1,23 @@
 import { Component, inject } from '@angular/core';
 import { SeguridadService } from '../seguridad.service';
-import { CredencialesUsuarioDTO } from '../seguridad';
 import { Router } from '@angular/router';
 import { extraerErroresIdentity } from '../../compartidos/funciones/extraerErrores';
+import { CredencialesUsuarioDTO } from '../seguridad';
 import { FormularioAutenticacionComponent } from "../formulario-autenticacion/formulario-autenticacion.component";
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-registro',
   imports: [FormularioAutenticacionComponent],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  templateUrl: './registro.component.html',
+  styleUrl: './registro.component.css'
 })
-export class LoginComponent {
-
+export class RegistroComponent {
   seguridadService = inject(SeguridadService);
   router = inject(Router);
   errores: string[] = [];
 
-  loguear(credenciales: CredencialesUsuarioDTO){
-    this.seguridadService.login(credenciales)
+  registrar(credenciales: CredencialesUsuarioDTO){
+    this.seguridadService.registrar(credenciales)
     .subscribe({
       next: () => {
         this.router.navigate(['/'])
@@ -29,5 +28,4 @@ export class LoginComponent {
       }
     })
   }
-  
 }
