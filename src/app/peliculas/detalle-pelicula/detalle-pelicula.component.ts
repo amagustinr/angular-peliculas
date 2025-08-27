@@ -7,10 +7,14 @@ import { MatChipsModule } from '@angular/material/chips';
 import { RouterLink } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { MapaComponent } from "../../compartidos/componentes/mapa/mapa.component";
+import { RatingService } from '../../rating/rating.service';
+import Swal from 'sweetalert2';
+import { SeguridadService } from '../../seguridad/seguridad.service';
+import { RatingComponent } from "../../compartidos/componentes/rating/rating.component";
 
 @Component({
     selector: 'app-detalle-pelicula',
-    imports: [CargandoComponent, MatChipsModule, RouterLink, MapaComponent],
+    imports: [CargandoComponent, MatChipsModule, RouterLink, MapaComponent, RatingComponent],
     templateUrl: './detalle-pelicula.component.html',
     styleUrl: './detalle-pelicula.component.css'
 })
@@ -21,6 +25,8 @@ export class DetallePeliculaComponent implements OnInit {
   id!: number;
 
   peliculasService = inject(PeliculasService);
+  ratingsService = inject(RatingService);
+  seguridadService = inject(SeguridadService);
   pelicula!: PeliculaDTO;
   sanitizer = inject(DomSanitizer);
   trailerURL!: SafeResourceUrl;
@@ -52,6 +58,18 @@ export class DetallePeliculaComponent implements OnInit {
 
     return this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${videoId}`)
 
+  }
+
+  puntuar(puntuacion: number){
+
+    if (!this.seguridadService.estaLogueado()){
+      Swal.fire('Error', "Debes loguearte para poder votar por una película", 'error')
+      return;
+    }
+
+    this.ratingsService.puntuar(this.id, puntuacion).subscribe(() => {
+      Swal.fire('Exitoso', "Su voto ha sido recibido", "success")
+    });
   }
 
 }
